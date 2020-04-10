@@ -130,7 +130,7 @@ func (m *ClientMock) Keys(pattern string) *redis.StringSliceCmd {
 	return m.Called().Get(0).(*redis.StringSliceCmd)
 }
 
-func (m *ClientMock) Migrate(host, port, key string, db int64, timeout time.Duration) *redis.StatusCmd {
+func (m *ClientMock) Migrate(host, port, key string, db int, timeout time.Duration) *redis.StatusCmd {
 	if !m.hasStub("Migrate") {
 		return m.client.Migrate(host, port, key, db, timeout)
 	}
@@ -138,7 +138,7 @@ func (m *ClientMock) Migrate(host, port, key string, db int64, timeout time.Dura
 	return m.Called().Get(0).(*redis.StatusCmd)
 }
 
-func (m *ClientMock) Move(key string, db int64) *redis.BoolCmd {
+func (m *ClientMock) Move(key string, db int) *redis.BoolCmd {
 	if !m.hasStub("Move") {
 		return m.client.Move(key, db)
 	}
@@ -1122,12 +1122,12 @@ func (m *ClientMock) GeoRadius(key string, longitude, latitude float64, query *r
 	return m.Called(key, longitude, latitude, query).Get(0).(*redis.GeoLocationCmd)
 }
 
-func (m *ClientMock) GeoRadiusRO(key string, longitude, latitude float64, query *redis.GeoRadiusQuery) *redis.GeoLocationCmd {
-	if !m.hasStub("GeoRadiusRO") {
-		return m.client.GeoRadiusRO(key, longitude, latitude, query)
+func (m *ClientMock) GeoRadiusStore(key string, longitude, latitude float64, query *redis.GeoRadiusQuery) *redis.IntCmd {
+	if !m.hasStub("GeoRadiusStore") {
+		return m.client.GeoRadiusStore(key, longitude, latitude, query)
 	}
 
-	return m.Called(key, longitude, latitude, query).Get(0).(*redis.GeoLocationCmd)
+	return m.Called(key, longitude, latitude, query).Get(0).(*redis.IntCmd)
 }
 
 func (m *ClientMock) GeoRadiusByMember(key, member string, query *redis.GeoRadiusQuery) *redis.GeoLocationCmd {
@@ -1138,12 +1138,12 @@ func (m *ClientMock) GeoRadiusByMember(key, member string, query *redis.GeoRadiu
 	return m.Called(key, member, query).Get(0).(*redis.GeoLocationCmd)
 }
 
-func (m *ClientMock) GeoRadiusByMemberRO(key, member string, query *redis.GeoRadiusQuery) *redis.GeoLocationCmd {
-	if !m.hasStub("GeoRadiusByMemberRO") {
-		return m.client.GeoRadiusByMemberRO(key, member, query)
+func (m *ClientMock) GeoRadiusByMemberStore(key, member string, query *redis.GeoRadiusQuery) *redis.IntCmd {
+	if !m.hasStub("GeoRadiusByMemberStore") {
+		return m.client.GeoRadiusByMemberStore(key, member, query)
 	}
 
-	return m.Called(key, member, query).Get(0).(*redis.GeoLocationCmd)
+	return m.Called(key, member, query).Get(0).(*redis.IntCmd)
 }
 
 func (m *ClientMock) GeoDist(key string, member1, member2, unit string) *redis.FloatCmd {

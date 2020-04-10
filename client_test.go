@@ -3,7 +3,6 @@ package redismock_test
 import (
 	"errors"
 	"testing"
-
 	"github.com/alicebob/miniredis"
 	"github.com/swapmat/redismock"
 	"github.com/go-redis/redis/v7"

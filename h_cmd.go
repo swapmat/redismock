@@ -74,15 +74,15 @@ func (m *ClientMock) HMGet(key string, fields ...string) *redis.SliceCmd {
 	return m.Called(key, fields).Get(0).(*redis.SliceCmd)
 }
 
-func (m *ClientMock) HMSet(key string, fields map[string]interface{}) *redis.StatusCmd {
+func (m *ClientMock) HMSet(key string, fields map[string]interface{}) *redis.BoolCmd {
 	if !m.hasStub("HMSet") {
 		return m.client.HMSet(key, fields)
 	}
 
-	return m.Called(key, fields).Get(0).(*redis.StatusCmd)
+	return m.Called(key, fields).Get(0).(*redis.BoolCmd)
 }
 
-func (m *ClientMock) HSet(key, values ...interface{}) *redis.IntCmd {
+func (m *ClientMock) HSet(key string, values ...interface{}) *redis.IntCmd {
 	if !m.hasStub("HSet") {
 		return m.client.HSet(key, values)
 	}
